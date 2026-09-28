@@ -18,11 +18,15 @@ Same intake + same catalog version always yields the same classification and pro
 
 These are screenshots of the running console, not mockups.
 
-| 01 · Mapping | 02 · Workpaper |
-| --- | --- |
-| ![Mapping with gaps](docs/screenshots/01-mapping-gaps.png) | ![Dossier and risk register](docs/screenshots/02-mapping-risk-register.png) |
+**01 · Mapping** — attested controls accepted; `C-TIER-01` stays partial; challenge refuses Annex III and Art. 72.
 
-Same system as Aegis. Catalog `0.3`. Two gaps left open (`C-TIER-01`, `C-MON-01`). `R-MON` stays open. Pack digest is stable.
+![Mapping with gaps](docs/screenshots/01-mapping-gaps.png)
+
+**02 · Workpaper** — dossier names both gaps; `R-MON` stays open; pack digest is on the page.
+
+![Dossier and risk register](docs/screenshots/02-mapping-risk-register.png)
+
+Same system as Aegis. Catalog `0.3`. Two gaps left open. Pack digest is stable.
 
 ## What you get
 
