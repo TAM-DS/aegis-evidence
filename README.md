@@ -14,6 +14,16 @@ catalog v0.3 + system digest X → pack digest Y
 
 Same intake + same catalog version always yields the same classification and proposed control statuses.
 
+## See the workpaper
+
+These are screenshots of the running console, not mockups.
+
+| 01 · Mapping | 02 · Workpaper |
+| --- | --- |
+| ![Mapping with gaps](docs/screenshots/01-mapping-gaps.png) | ![Dossier and risk register](docs/screenshots/02-mapping-risk-register.png) |
+
+Same system as Aegis. Catalog `0.3`. Two gaps left open (`C-TIER-01`, `C-MON-01`). `R-MON` stays open. Pack digest is stable.
+
 ## What you get
 
 1. **System dossier** — one page (`dossier.md`)
@@ -77,8 +87,6 @@ python -m pytest tests/ -q
 ## Why this and not an audit copilot
 
 A SOX-style agents-pull-evidence tool is a feature, not a product. The exception plus human-approval step is already here: the challenge agent flags over-claims; acceptance is a separate record; missing/partial rows cannot be laundered into attested by a model.
-
-Wire this to Aegis later by pointing the fixture at live Aegis audit JSONL. Do not start a second repo until this pack is boringly replayable.
 
 ## Scope
 
