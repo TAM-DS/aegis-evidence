@@ -1,0 +1,141 @@
+version: "0.3"
+name: "Aegis Evidence Control Catalog"
+scope: "Deployer obligations for a governed SOC analyst agent with simulated containment."
+controls:
+  - id: C-INV-01
+    title: "Authoritative AI system inventory record"
+    theme: inventory
+    nist: ["GV-1.6", "MP-2.1"]
+    iso42001: ["A.4.2", "A.6.2.7"]
+    eu_ai_act: ["Art. 11", "Art. 26"]
+    evidence_required:
+      - "Named system record with owner, purpose, version, and environment"
+    status_rule: "attested_if_system_record_complete"
+  - id: C-PUR-01
+    title: "Intended purpose is documented and bounded"
+    theme: purpose
+    nist: ["MP-1.1"]
+    iso42001: ["A.6.2.2"]
+    eu_ai_act: ["Art. 9", "Annex IV.1"]
+    evidence_required:
+      - "Intended purpose statement"
+      - "Out-of-scope statement"
+    status_rule: "attested_if_purpose_and_exclusions"
+  - id: C-ROLE-01
+    title: "Provider vs deployer role is explicit"
+    theme: accountability
+    nist: ["GV-1.2"]
+    iso42001: ["A.3.2"]
+    eu_ai_act: ["Art. 25", "Art. 26"]
+    evidence_required:
+      - "Role designation"
+    status_rule: "attested_if_role_set"
+  - id: C-OWN-01
+    title: "Named human owner and approver"
+    theme: accountability
+    nist: ["GV-1.2", "GV-3.2"]
+    iso42001: ["A.3.2", "A.9.3"]
+    eu_ai_act: ["Art. 14", "Art. 26"]
+    evidence_required:
+      - "Owner name"
+      - "Approver role"
+    status_rule: "attested_if_owner"
+  - id: C-TIER-01
+    title: "Risk classification with insufficient-information path"
+    theme: classification
+    nist: ["MP-1.1", "MP-5.1"]
+    iso42001: ["A.5.2", "6.1"]
+    eu_ai_act: ["Art. 6", "Art. 9"]
+    evidence_required:
+      - "Documented risk tier and rationale"
+    status_rule: "attested_if_tier_not_insufficient"
+  - id: C-DATA-01
+    title: "Data categories and telemetry sources recorded"
+    theme: data
+    nist: ["MP-2.3", "MS-2.10"]
+    iso42001: ["A.7.2", "A.7.4"]
+    eu_ai_act: ["Art. 10"]
+    evidence_required:
+      - "Data class list"
+    status_rule: "attested_if_data_classes"
+  - id: C-OVER-01
+    title: "Human oversight before disruptive action"
+    theme: oversight
+    nist: ["GV-3.2", "MP-3.5", "MG-2.4"]
+    iso42001: ["A.6.1.3", "A.9.3"]
+    eu_ai_act: ["Art. 14"]
+    evidence_required:
+      - "Approval gate for isolate_host or equivalent"
+    status_rule: "attested_if_approval_gate"
+  - id: C-POL-01
+    title: "Policy engine is separate from the model"
+    theme: governance
+    nist: ["GV-1.2", "MG-2.4"]
+    iso42001: ["A.6.2.6"]
+    eu_ai_act: ["Art. 9", "Art. 14"]
+    evidence_required:
+      - "Policy engine exists outside prompts"
+    status_rule: "attested_if_policy_engine"
+  - id: C-EXEC-01
+    title: "Execution sandbox is allowlisted"
+    theme: runtime
+    nist: ["MG-2.3"]
+    iso42001: ["A.6.2.6"]
+    eu_ai_act: ["Art. 9"]
+    evidence_required:
+      - "Allowlisted tools; unknown tools denied"
+    status_rule: "attested_if_sandbox"
+  - id: C-SIM-01
+    title: "Simulated action is not claimed as completed containment"
+    theme: honesty
+    nist: ["MS-2.8", "MS-2.9"]
+    iso42001: ["A.8.5"]
+    eu_ai_act: ["Art. 13"]
+    evidence_required:
+      - "Result text distinguishes request from verified state"
+    status_rule: "attested_if_simulation_honest"
+  - id: C-AUD-01
+    title: "Append-only investigation and decision log"
+    theme: audit
+    nist: ["GV-1.6", "MS-2.8"]
+    iso42001: ["A.6.2.8"]
+    eu_ai_act: ["Art. 12", "Art. 26"]
+    evidence_required:
+      - "JSONL or equivalent event log"
+    status_rule: "attested_if_audit_log"
+  - id: C-TEST-01
+    title: "Governance path is tested, not only narrated"
+    theme: testing
+    nist: ["GV-4.3", "MS-2.6"]
+    iso42001: ["A.6.2.4"]
+    eu_ai_act: ["Art. 9(5)", "Art. 9(7)"]
+    evidence_required:
+      - "Automated tests for deny-without-approval"
+    status_rule: "attested_if_governance_tests"
+  - id: C-SCOPE-01
+    title: "Production integrations are explicitly out of scope or verified"
+    theme: scope
+    nist: ["MP-1.1"]
+    iso42001: ["A.6.2.2"]
+    eu_ai_act: ["Art. 13"]
+    evidence_required:
+      - "No real EDR claim, or verified integration evidence"
+    status_rule: "attested_if_scope_honest"
+  - id: C-INC-01
+    title: "Incident / exception handling path exists"
+    theme: operations
+    nist: ["MG-4.1"]
+    iso42001: ["A.10.3"]
+    eu_ai_act: ["Art. 20", "Art. 26"]
+    evidence_required:
+      - "Documented deny and exception path"
+    status_rule: "attested_if_exception_path"
+  - id: C-MON-01
+    title: "Post-use monitoring of the agent is defined"
+    theme: operations
+    nist: ["MG-3.1"]
+    iso42001: ["9.1"]
+    eu_ai_act: ["Art. 72"]
+    evidence_required:
+      - "Monitoring cadence or metrics endpoint"
+    status_rule: "partial_if_metrics_only"
