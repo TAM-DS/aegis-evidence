@@ -1,0 +1,40 @@
+system_id: aegis-analyst
+name: "AEGIS Governed SOC Analyst"
+version: "1.0.0"
+environment: demo
+role: deployer
+owner: "SOC Lead"
+approver_role: "Incident Commander"
+intended_purpose: >
+  Investigate seeded security cases, map indicators to MITRE ATT&CK,
+  and propose response actions. Disruptive actions require a human
+  approval gate. Containment tools are simulated.
+out_of_scope:
+  - Real EDR / identity-provider / network changes
+  - Authenticated enterprise approval identities
+  - Tamper-evident audit service
+autonomy: "propose-and-wait"
+data_classes:
+  - seeded_alerts
+  - host_telemetry
+  - operator_notes
+tools:
+  - retrieve_context
+  - hunt_telemetry
+  - map_attack
+  - isolate_host_simulated
+capabilities:
+  approval_gate: true
+  policy_engine_separate: true
+  allowlisted_sandbox: true
+  simulation_honest: true
+  audit_log: true
+  governance_tests: true
+  production_edr: false
+  exception_path: true
+  metrics_endpoint: true
+  post_market_monitoring_program: false
+notes: >
+  Companion fixture for https://github.com/TAM-DS/aegis-analyst
+  The isolate_host tool returns a simulated request and states the
+  host remains reachable until SOC confirms.
