@@ -51,6 +51,9 @@ def run_pipeline(catalog_path: Path, system_path: Path) -> RunResult:
 
 
 def accept_all_attested(result: RunResult, acceptor: str) -> RunResult:
+    if not isinstance(acceptor, str) or not acceptor.strip():
+        raise ValueError("A non-empty acceptor name is required.")
+    acceptor = acceptor.strip()
     for row in result.evaluations:
         if row.status in {"attested", "verified"}:
             row.accepted = True
