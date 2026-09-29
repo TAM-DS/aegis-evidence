@@ -138,4 +138,4 @@ controls:
     eu_ai_act: ["Art. 26(5)"]
     evidence_required:
       - "Documented operational monitoring procedure, including cadence and escalation"
-    status_rule: "partial_if_metrics_only"
+    status_rule: "partial_if_audit_only"
