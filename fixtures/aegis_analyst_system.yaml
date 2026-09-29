@@ -32,7 +32,7 @@ capabilities:
   governance_tests: true
   production_edr: false
   exception_path: true
-  metrics_endpoint: true
+  metrics_endpoint: false
   operational_monitoring_procedure: false
 notes: >
   Companion fixture for https://github.com/TAM-DS/aegis-analyst
