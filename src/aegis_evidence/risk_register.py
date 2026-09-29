@@ -23,7 +23,7 @@ def build_register(
                 impact=impact,
                 residual=residual,
                 owner=system.owner or "unassigned",
-                status="open" if open_gaps else "accepted-with-controls",
+                status="open" if open_gaps else "no-modeled-gap",
             )
         )
 
