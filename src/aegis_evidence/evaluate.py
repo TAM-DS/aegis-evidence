@@ -82,11 +82,11 @@ def evaluate_control(rule: str, system: SystemRecord) -> tuple[str, str]:
         ),
         "partial_if_metrics_only": (
             "partial"
-            if _cap(system, "metrics_endpoint") and not _cap(system, "post_market_monitoring_program")
-            else ("attested" if _cap(system, "post_market_monitoring_program") else "missing"),
-            "Metrics exist; no post-use monitoring program."
-            if _cap(system, "metrics_endpoint") and not _cap(system, "post_market_monitoring_program")
-            else ("" if _cap(system, "post_market_monitoring_program") else "No monitoring declared."),
+            if _cap(system, "metrics_endpoint") and not _cap(system, "operational_monitoring_procedure")
+            else ("attested" if _cap(system, "operational_monitoring_procedure") else "missing"),
+            "Metrics exist; no documented deployer operational monitoring procedure."
+            if _cap(system, "metrics_endpoint") and not _cap(system, "operational_monitoring_procedure")
+            else ("" if _cap(system, "operational_monitoring_procedure") else "No deployer operational monitoring procedure declared."),
         ),
     }
     return mapping.get(rule, ("missing", f"Unknown rule {rule}"))
