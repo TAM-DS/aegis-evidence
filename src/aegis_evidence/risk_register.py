@@ -46,7 +46,7 @@ def build_register(
     )
     add(
         "R-MON",
-        "No post-use monitoring program for the analyst agent.",
+        "No documented deployer operational monitoring procedure for the analyst agent.",
         ["C-MON-01"],
         "medium",
         "medium",
