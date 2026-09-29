@@ -80,12 +80,12 @@ def evaluate_control(rule: str, system: SystemRecord) -> tuple[str, str]:
             "attested" if _cap(system, "exception_path") else "missing",
             "" if _cap(system, "exception_path") else "No deny/exception path declared.",
         ),
-        "partial_if_metrics_only": (
+        "partial_if_audit_only": (
             "partial"
-            if _cap(system, "metrics_endpoint") and not _cap(system, "operational_monitoring_procedure")
+            if _cap(system, "audit_log") and not _cap(system, "operational_monitoring_procedure")
             else ("attested" if _cap(system, "operational_monitoring_procedure") else "missing"),
-            "Metrics exist; no documented deployer operational monitoring procedure."
-            if _cap(system, "metrics_endpoint") and not _cap(system, "operational_monitoring_procedure")
+            "An audit trail exists; no documented deployer operational monitoring procedure."
+            if _cap(system, "audit_log") and not _cap(system, "operational_monitoring_procedure")
             else ("" if _cap(system, "operational_monitoring_procedure") else "No deployer operational monitoring procedure declared."),
         ),
     }
