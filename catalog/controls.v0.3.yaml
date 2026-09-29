@@ -131,11 +131,11 @@ controls:
       - "Documented deny and exception path"
     status_rule: "attested_if_exception_path"
   - id: C-MON-01
-    title: "Post-use monitoring of the agent is defined"
+    title: "Deployer operational monitoring of the agent is defined"
     theme: operations
     nist: ["MG-3.1"]
     iso42001: ["9.1"]
-    eu_ai_act: ["Art. 72"]
+    eu_ai_act: ["Art. 26(5)"]
     evidence_required:
-      - "Monitoring cadence or metrics endpoint"
+      - "Documented operational monitoring procedure, including cadence and escalation"
     status_rule: "partial_if_metrics_only"
