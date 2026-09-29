@@ -148,7 +148,13 @@ def write_pack(
             continue
         hash_lines.append(f"{sha256_hex(content)}  {name}")
     files["hashes.txt"] = "\n".join(hash_lines) + "\n"
+    # Fix ZIP metadata so identical decision + acceptance state produces
+    # identical archive bytes and therefore an independently verifiable checksum.
     with zipfile.ZipFile(dest_zip, "w", compression=zipfile.ZIP_DEFLATED) as zf:
         for name, content in files.items():
-            zf.writestr(name, content)
+            entry = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
+            entry.compress_type = zipfile.ZIP_DEFLATED
+            entry.create_system = 3
+            entry.external_attr = 0o644 << 16
+            zf.writestr(entry, content)
     return manifest
