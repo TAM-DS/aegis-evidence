@@ -9,6 +9,7 @@ ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT / "src"))
 
 from aegis_evidence.challenge import challenge
+from aegis_evidence.digest import sha256_hex
 from aegis_evidence.pack import dossier_markdown, risk_register_csv
 from aegis_evidence.pipeline import accept_all_attested, freeze_pack, run_pipeline
 
@@ -25,6 +26,7 @@ st.caption(
 if "result" not in st.session_state:
     st.session_state.result = None
     st.session_state.pack_path = None
+    st.session_state.pack_sha256 = None
 
 left, center, right = st.columns([1.1, 1.4, 1.2])
 
@@ -34,6 +36,7 @@ with left:
     if st.button("Run mapping", type="primary"):
         st.session_state.result = run_pipeline(CATALOG, FIXTURE)
         st.session_state.pack_path = None
+        st.session_state.pack_sha256 = None
     result = st.session_state.result
     if result:
         s = result.system
@@ -78,15 +81,24 @@ with right:
     if result:
         acceptor = st.text_input("Acceptor name", value="SOC Lead")
         if st.button("Accept attested controls"):
-            st.session_state.result = accept_all_attested(result, acceptor)
-            st.success("Attested rows marked accepted. Gaps stay open.")
+            if not acceptor.strip():
+                st.error("Enter a named acceptor before recording acceptance.")
+            else:
+                st.session_state.result = accept_all_attested(result, acceptor)
+                st.session_state.pack_path = None
+                st.session_state.pack_sha256 = None
+                st.success("Declared controls accepted by the named operator. Gaps stay open.")
         if st.button("Freeze evidence pack"):
             PACK_DIR.mkdir(parents=True, exist_ok=True)
             digest = result.manifest.pack_digest[:12]
             dest = PACK_DIR / f"pack-{digest}.zip"
             manifest = freeze_pack(result, dest)
-            st.session_state.pack_path = str(dest)
-            st.success(f"Pack digest `{manifest.pack_digest}`")
+            artifact_sha256 = sha256_hex(dest.read_bytes())
+            final_dest = PACK_DIR / f"pack-{digest}-{artifact_sha256[:12]}.zip"
+            dest.replace(final_dest)
+            st.session_state.pack_path = str(final_dest)
+            st.session_state.pack_sha256 = artifact_sha256
+            st.success("Evidence ZIP frozen. The decision-state and archive digests are shown below.")
         if st.session_state.pack_path:
             data = Path(st.session_state.pack_path).read_bytes()
             st.download_button(
@@ -96,6 +108,13 @@ with right:
                 mime="application/zip",
             )
         st.markdown("**Replay identifiers**")
+        st.caption(
+            "Pack digest identifies the catalog, system, classification, and proposed control "
+            "evaluations; acceptance is deliberately excluded. Archive SHA-256 identifies the "
+            "exact ZIP, including acceptance records and the risk register."
+        )
+        if st.session_state.pack_sha256:
+            st.code(f"archive_sha256: {st.session_state.pack_sha256}")
         m = result.manifest
         st.code(
             "\n".join(
