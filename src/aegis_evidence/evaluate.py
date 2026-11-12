@@ -4,18 +4,18 @@ from .models import Catalog, ControlEvaluation, SystemRecord
 
 
 def _cap(system: SystemRecord, key: str) -> bool:
-    return bool(system.capabilities.get(key))
+    return system.capabilities.get(key) is True
 
 
 def evaluate_control(rule: str, system: SystemRecord) -> tuple[str, str]:
     purpose_ok = bool(system.intended_purpose.strip()) and bool(system.out_of_scope)
     record_ok = all(
         [
-            system.system_id,
-            system.name,
-            system.version,
-            system.environment,
-            system.owner,
+            system.system_id.strip(),
+            system.name.strip(),
+            system.version.strip(),
+            system.environment.strip(),
+            system.owner.strip(),
         ]
     )
 
@@ -29,12 +29,12 @@ def evaluate_control(rule: str, system: SystemRecord) -> tuple[str, str]:
             "" if purpose_ok else "Purpose or exclusions missing.",
         ),
         "attested_if_role_set": (
-            "attested" if system.role else "missing",
-            "" if system.role else "Role not set.",
+            "attested" if system.role.strip() else "missing",
+            "" if system.role.strip() else "Role not set.",
         ),
         "attested_if_owner": (
-            "attested" if system.owner and system.approver_role else "missing",
-            "" if system.owner and system.approver_role else "Owner or approver role missing.",
+            "attested" if system.owner.strip() and system.approver_role.strip() else "missing",
+            "" if system.owner.strip() and system.approver_role.strip() else "Owner or approver role missing.",
         ),
         "attested_if_tier_not_insufficient": (
             "partial",
@@ -69,12 +69,10 @@ def evaluate_control(rule: str, system: SystemRecord) -> tuple[str, str]:
             "" if _cap(system, "governance_tests") else "No governance tests declared.",
         ),
         "attested_if_scope_honest": (
-            "attested"
-            if (not _cap(system, "production_edr") or "Real EDR" in " ".join(system.out_of_scope))
-            else "missing",
+            "attested" if system.capabilities.get("production_edr") is False else "missing",
             ""
-            if (not _cap(system, "production_edr"))
-            else "Production EDR claimed without verification artifact.",
+            if system.capabilities.get("production_edr") is False
+            else "Production EDR is claimed or unspecified; no verification artifact establishes scope.",
         ),
         "attested_if_exception_path": (
             "attested" if _cap(system, "exception_path") else "missing",
@@ -116,3 +114,4 @@ def evaluate_catalog(catalog: Catalog, system: SystemRecord) -> list[ControlEval
             )
         )
     return rows
+

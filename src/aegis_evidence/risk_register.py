@@ -12,7 +12,7 @@ def build_register(
     rows: list[RiskRow] = []
 
     def add(risk_id: str, text: str, controls: list[str], likelihood: str, impact: str) -> None:
-        open_gaps = [c for c in controls if by_id.get(c) and by_id[c].status in {"missing", "partial"}]
+        open_gaps = [c for c in controls if c not in by_id or by_id[c].status in {"missing", "partial"}]
         residual = "high" if open_gaps and impact == "high" else ("medium" if open_gaps else "low")
         rows.append(
             RiskRow(
@@ -59,3 +59,4 @@ def build_register(
         "medium",
     )
     return rows
+

@@ -1,5 +1,21 @@
 # AEGIS Evidence | Governed AI Assurance Workpaper
 
+[![Tests](https://github.com/TAM-DS/aegis-evidence/actions/workflows/ci.yml/badge.svg)](https://github.com/TAM-DS/aegis-evidence/actions/workflows/ci.yml)
+
+## Validation and review
+
+**November 12, 2026:** 24 tests passed locally on Python 3.12. CI runs the suite on Python 3.11, 3.12, and 3.13; use the badge/run link for current remote results.
+
+Strict Boolean capability declarations; incomplete intake; unknown control rules; absent-control risks; acceptance boundaries; deterministic replay; and ZIP payload hashes.
+
+```bash
+python -m pip install -r requirements.txt pytest
+python -m pytest -q
+```
+
+Attested means declared, not independently verified. Hashes establish byte integrity against an expected digest, not source authenticity or regulatory certification.
+
+
 Companion to [TAM-DS/aegis-analyst](https://github.com/TAM-DS/aegis-analyst).
 
 AEGIS can recommend isolating a host. This repo asks the next question: **what inspectable evidence supports its governance claims, and which gaps remain unresolved?**
@@ -101,3 +117,4 @@ The architecture distinguishes a declared capability from an independently verif
 - Deterministic rules and challenge checks; no LLM required.
 - No independent verification of the fixture's capability declarations, production identity/authorization, tamper-evident evidence service, or certification claim.
 - All scenarios are synthetic. A successful demo does not establish legal classification, compliance, audit sufficiency, or notified-body approval.
+
