@@ -2,19 +2,6 @@
 
 [![Tests](https://github.com/TAM-DS/aegis-evidence/actions/workflows/ci.yml/badge.svg)](https://github.com/TAM-DS/aegis-evidence/actions/workflows/ci.yml)
 
-## Validation and review
-
-**November 12, 2026:** 24 tests passed locally on Python 3.12. CI runs the suite on Python 3.11, 3.12, and 3.13; use the badge/run link for current remote results.
-
-Strict Boolean capability declarations; incomplete intake; unknown control rules; absent-control risks; acceptance boundaries; deterministic replay; and ZIP payload hashes.
-
-```bash
-python -m pip install -r requirements.txt pytest
-python -m pytest -q
-```
-
-Attested means declared, not independently verified. Hashes establish byte integrity against an expected digest, not source authenticity or regulatory certification.
-
 
 Companion to [TAM-DS/aegis-analyst](https://github.com/TAM-DS/aegis-analyst).
 
@@ -30,6 +17,21 @@ complete evidence ZIP, including human acceptance + risk register → archive_sh
 ```
 
 The decision-state digest deliberately excludes human acceptance and risk-register contents, so it remains stable when a human accepts eligible declarations. The independently computed ZIP SHA-256 identifies the exact frozen artifact, including acceptance and register data. Identical inputs and acceptance state generate byte-identical ZIPs.
+
+---
+
+## Validation and review
+
+**November 12, 2026:** 24 tests passed locally on Python 3.12. CI runs the suite on Python 3.11, 3.12, and 3.13; use the badge/run link for current remote results.
+
+Strict Boolean capability declarations; incomplete intake; unknown control rules; absent-control risks; acceptance boundaries; deterministic replay; and ZIP payload hashes.
+
+```bash
+python -m pip install -r requirements.txt pytest
+python -m pytest -q
+```
+
+Attested means declared, not independently verified. Hashes establish byte integrity against an expected digest, not source authenticity or regulatory certification.
 
 ## See the workpaper
 
